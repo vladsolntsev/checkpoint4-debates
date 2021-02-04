@@ -5,10 +5,18 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
+import './styles/app.scss';
+
+
+
 // any CSS you import will output into a single css file (app.css in this case)
-import '../styles/app.scss';
-import '../bootstrap';
-// start the Stimulus application
+
+
+// Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
+// import $ from 'jquery';
+
+import Chart from 'chart.js/dist/Chart';
+
 const $ = require('jquery');
 
 // this "modifies" the jquery module: adding behavior to it

@@ -1,11 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}New Answer{% endblock %}
-
 {% block body %}
-    <h1>Create new Answer</h1>
+  <div class="container-fluid ">
+      <div class="row d-flex justify-content-center">
+          <div class="col-6 ">
+              <h1 class="text-center">Create new Answer</h1>
+              {{ form_start(form) }}
+              {{ form_widget(form) }}
+              <div class="d-flex justify-content-center">
+                  <input class="btn btn-secondary align-self-center" type='submit' value='Add answer'>
+              </div>
 
-    {{ include('answer/_form.html.twig') }}
+              {{ form_end(form) }}
+          </div>
+      </div>
+  </div>
 
-    <a href="{{ path('answer_index') }}">back to list</a>
 {% endblock %}

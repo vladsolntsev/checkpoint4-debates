@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container-fluid justify-content-center">
+
+        <div class="row border-bottom">
+            <div class="col text-center question m-5">
+                <h1>
+                    {{ question.name }}
+                </h1>
+                <div class="mb-4">
+                    <a class="btn btn-light rating-button" href="{{ path("question_rating_down", {id: question.id}) }}"><i class="fas fa-chevron-down negative-rating"></i></a>
+                    {{ question.rating }}
+                    <a class="btn btn-light rating-button" href="{{ path("question_rating_up", {id: question.id}) }}"><i class="fas fa-chevron-up positive-rating"></i></a>
+                </div>
+                <img class="question-poster" src="/uploads/{{ question.poster }}" alt="{{ question.name }}">
+            </div>
+        </div>
+        <div class="row  border-bottom">
+
+            <div class="col-6 text-center border-right mb-3 mt-3"><h2>For</h2><a class="action-button animate blue" href="{{ path("answer_new_positive", {id: question.id}) }}">Add answer</a></div>
+            <div class="col-6 text-center border-left mb-3 mt-3"><h2>Against</h2><a class="action-button animate red" href="{{ path("answer_new_negative", {id: question.id}) }}">Add answer</a></div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 text-center border-right block-positive">
+                    <div class="">
+                        <div class="block-answer">
+                            {% for answer in answers %}
+                                {% if answer.type == true %}
+                                    <div class="border answer">
+                                        {{ answer.text }}
+                                    </div>
+                                    <div class="ml-5 mt-3 mb-3 d-flex justify-content-end">
+                                    <div >
+                                        <a class="btn btn-light rating-button" href="{{ path("answer_rating_down", {id: answer.id}) }}"><i class="fas fa-chevron-down negative-rating"></i></a>
+                                        {{ answer.rating }}
+                                        <a class="btn btn-light rating-button" href="{{ path("answer_rating_up", {id: answer.id}) }}"><i class="fas fa-chevron-up positive-rating"></i></a>
+                                    </div>
+                                    <div>
+                                        created by {{ answer.question.user.email }}
+                                    </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+            </div>
+
+            <div class="col-6 text-center border-left block-negative">
+
+                <div class="">
+                    <div>  {% for answer in answers %}
+                                {% if answer.type == false %}
+                                    <div class="border answer">
+                                        {{ answer.text }}
+                                    </div>
+
+                                        <div class="ml-5 mt-3 mb-3 d-flex justify-content-end">
+
+                                    <div>
+                                        <a class="btn btn-light rating-button" href="{{ path("answer_rating_down", {id: answer.id}) }}"><i class="fas fa-chevron-down negative-rating"></i></a>
+                                        {{ answer.rating }}
+                                        <a class="btn btn-light rating-button" href="{{ path("answer_rating_up", {id: answer.id}) }}"><i class="fas fa-chevron-up positive-rating"></i></a>
+                                    </div>
+                                    <div>
+                                        created by {{ answer.question.user.email }}
+                                    </div>
+                                        </div>
+                                {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

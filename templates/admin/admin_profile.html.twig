@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container-fluid justify-content-center">
+    <div class="row">
+        <div class="col">
+            <a class="btn" href="{{ path("question_index") }}">All questions</a>
+            <a class="btn" href="{{ path("answer_index") }}">All answers</a>
+            <a class="btn" href="{{ path("category_index") }}">All categories</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <div>
+        <h1>My questions</h1>
+        <table class="table">
+            <tbody>
+            {% for question in questions %}
+                <tr>
+                    <td>{{ question.name }}</td>
+                    <td>
+                        <a href="{{ path('question_edit', {'id': question.id}) }}">edit</a>
+                    </td>
+                    <td>
+                        {{ include('question/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h1>
+            My answers
+        </h1>
+        {% for answer in answers %}
+            <div class="border">
+                <ul>
+                    <li class="d-flex justify-content-center flex-column">
+                        <div class="border answer">
+                            {{ answer.text }}
+                        </div>
+                        <div>
+                            for the question "{{ answer.question.name }}" in category
+                            {% if answer.type == 1 %}
+                                positive
+                            {% else %}
+                                negative
+                            {% endif %}
+                        </div>
+                        <div>
+                            <a href="{{ path('answer_edit', {'id': answer.id}) }}">Edit</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

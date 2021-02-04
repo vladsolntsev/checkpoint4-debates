@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container-fluid justify-content-center">
+        <div class="row">
+            <div class="col text-center question m-5">
+                <h1>
+                    Colloquium
+                </h1>
+                <h2>
+                    The place for all things debates related
+                </h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                <a class="action-button animate green" href="{{ path("question_new") }}">Create a question</a>
+
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-6 text-center d-flex flex-column"><h2>Last Questions</h2>
+
+                    <div class="d-flex justify-content-center flex-wrap">
+                        {% for question in lastQuestions %}
+                        <div class="card w-75">
+                            <img class="card-img-top question-little-poster" src="/uploads/{{ question.poster }}"
+                                 alt="{{ question.name }}">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <h4><a href="{{ path("one_question", {id: question.id}) }}">{{ question.name }}</a></h4>
+                                <p>
+                             Category : {{ question.category.name }}
+                                </p>
+                                </p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+            </div>
+
+
+            <div class="col-6 text-center"><h2>Top Questions</h2>
+                <div>
+                        <table class="table">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Top</th>
+                                <th scope="col">Question</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Rating</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for question in topQuestions %}
+                            <tr>
+                                <th scope="row">{{ loop.index }}</th>
+                                <td> <a href="{{ path("one_question", {id: question.id}) }}">{{ question.name }}</a></td>
+                                <td>{{ question.category.name }}</td>
+                                <td>{{ question.rating }}</td>
+                            </tr>
+
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+
+        </div>
+
+    </div>
+{% endblock %}

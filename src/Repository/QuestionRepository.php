@@ -19,22 +19,54 @@ class QuestionRepository extends ServiceEntityRepository
         parent::__construct($registry, Question::class);
     }
 
+
     // /**
     //  * @return Question[] Returns an array of Question objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findTopFiveQuestions()
     {
         return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('q.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('q.rating', 'DESC')
+            ->setMaxResults(5)
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
+
+    public function findLastFiveQuestions()
+    {
+        return $this->createQueryBuilder('q')
+            ->orderBy('q.id', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findTopQuestions()
+    {
+        return $this->createQueryBuilder('q')
+            ->orderBy('q.rating', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findRandQuestion()
+    {
+        return $this->createQueryBuilder('q')
+            ->orderBy('RAND()')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
+
+
+
+
 
     /*
     public function findOneBySomeField($value): ?Question

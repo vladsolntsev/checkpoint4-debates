@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Question;
 use App\Form\QuestionType;
+use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,10 +37,12 @@ class QuestionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $question->setUser($this->getUser());
+            $question->setRating(0);
             $entityManager->persist($question);
             $entityManager->flush();
 
-            return $this->redirectToRoute('question_index');
+            return $this->redirectToRoute('one_question', ['id' => $question->getId()]);
         }
 
         return $this->render('question/new.html.twig', [
@@ -69,7 +72,7 @@ class QuestionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('question_index');
+            return $this->redirectToRoute('profile');
         }
 
         return $this->render('question/edit.html.twig', [
@@ -89,6 +92,35 @@ class QuestionController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('question_index');
+        return $this->redirectToRoute('profile');
+    }
+
+    /**
+     * @Route("/questionRatingUp/{id}", name="question_rating_up")
+     */
+    public function questionRatingUp(Question $question): Response
+    {
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $question->setRating($question->getRating()+1);
+        $entityManager->persist($question);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('one_question', ['id' => $question->getId()]);
+    }
+
+    /**
+     * @Route("/questionRatingDown/{id}", name="question_rating_down")
+     */
+    public function questionRatingDown(Question $question): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $question->setRating($question->getRating()-1);
+        $question->setRatingDown($question->getRatingDown()+1);
+        $entityManager->persist($question);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('one_question', ['id' => $question->getId()]);
     }
 }
