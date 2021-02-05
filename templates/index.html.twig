@@ -1,50 +1,44 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="container-fluid justify-content-center">
-        <div class="row">
-            <div class="col text-center question m-5">
-                <h1>
+        <div class="row banner mb-4">
+            <div class=" col text-center question m-5">
+                <h1 class="display-1">
                     Colloquium
                 </h1>
                 <h2>
-                    The place for all things debates related
+                  All the questions you wanted to ask
                 </h2>
             </div>
         </div>
-
-        <div class="row">
+        <div class="row mb-4 mt-5">
             <div class="col text-center">
-                <a class="action-button animate green" href="{{ path("question_new") }}">Create a question</a>
-
+                <a class="action-button animate green" href="{{ path("question_new") }}">Ask your question</a>
             </div>
         </div>
         <div class="row">
-
-            <div class="col-6 text-center d-flex flex-column"><h2>Last Questions</h2>
-
+            <div class="col-6 text-center d-flex flex-column mb-3"><h2 class="mb-4">Last Questions</h2>
                     <div class="d-flex justify-content-center flex-wrap">
                         {% for question in lastQuestions %}
-                        <div class="card w-75">
+                        <div class="card w-75 mb-3">
                             <img class="card-img-top question-little-poster" src="/uploads/{{ question.poster }}"
                                  alt="{{ question.name }}">
                             <div class="card-body">
                                 <p class="card-text">
                                     <h4><a href="{{ path("one_question", {id: question.id}) }}">{{ question.name }}</a></h4>
                                 <p>
-                             Category : {{ question.category.name }}
+                             {{ question.category.name }} |  {{ question.answers|length }}
+                                    <i class="fas fa-comments"></i>
                                 </p>
                                 </p>
                             </div>
                         </div>
                         {% endfor %}
                     </div>
-
             </div>
-
-
-            <div class="col-6 text-center"><h2>Top Questions</h2>
-                <div>
-                        <table class="table">
+            <div class="col-6 text-center"><h2 class="mb-4">Top Questions</h2>
+                <div class="d-flex justify-content-center flex-wrap">
+                        <table class="table w-75">
                             <thead class="thead-light">
                             <tr>
                                 <th scope="col">Top</th>
@@ -61,19 +55,11 @@
                                 <td>{{ question.category.name }}</td>
                                 <td>{{ question.rating }}</td>
                             </tr>
-
                             {% endfor %}
                             </tbody>
                         </table>
                 </div>
             </div>
-
         </div>
-
-        <div class="row">
-
-
-        </div>
-
     </div>
 {% endblock %}

@@ -3,23 +3,29 @@
 {% block title %}Answer index{% endblock %}
 
 {% block body %}
-    <h1>Answer index</h1>
 
+    <div class="text-center">
+        <h1 class="mb-4 mt-3">All Answers</h1>
+    </div>
     <table class="table">
-        <thead>
+        <thead class="thead-light">
             <tr>
-                <th>Id</th>
                 <th>Text</th>
+                <th>Question</th>
+                <th>Posted by</th>
                 <th>Type</th>
                 <th>Rating</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for answer in answers %}
             <tr>
-                <td>{{ answer.id }}</td>
                 <td>{{ answer.text }}</td>
+                <td>{{ answer.question.name }}</td>
+                {% if answer.question.user.name is defined %}
+                <td>{{ answer.question.user.name }}</td>
+                {% endif %}
                 <td>{{ answer.type ? 'Yes' : 'No' }}</td>
                 <td>{{ answer.rating }}</td>
                 <td>

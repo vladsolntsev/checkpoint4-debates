@@ -2,7 +2,7 @@
 {% block body %}
     <div class="container-fluid justify-content-center">
         <div class="row">
-            <div class="col text-center question m-5">
+            <div class="col text-center question m-4">
                 <h1>
            Top questions
                 </h1>
@@ -16,7 +16,7 @@
 
                         <div class="d-flex justify-content-center flex-wrap">
                             {% for question in topAllQuestions %}
-                                <div class="card w-75">
+                                <div class="card w-75 mb-3">
                                     <img class="card-img-top question-little-poster" src="/uploads/{{ question.poster }}"
                                          alt="{{ question.name }}">
                                     <div class="card-body">
@@ -24,6 +24,9 @@
                                         <h4><a href="{{ path("one_question", {id: question.id}) }}">{{ question.name }}</a></h4>
                                         <p>
                                             Category : {{ question.category.name }}
+                                        </p>
+                                        <p>
+                                            Rating : {{ question.rating }}
                                         </p>
                                         </p>
                                     </div>

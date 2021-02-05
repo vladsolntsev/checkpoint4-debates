@@ -86,7 +86,7 @@ class QuestionController extends AbstractController
      */
     public function delete(Request $request, Question $question): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$question->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $question->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($question);
             $entityManager->flush();
@@ -103,7 +103,7 @@ class QuestionController extends AbstractController
 
 
         $entityManager = $this->getDoctrine()->getManager();
-        $question->setRating($question->getRating()+1);
+        $question->setRating($question->getRating() + 1);
         $entityManager->persist($question);
         $entityManager->flush();
 
@@ -116,8 +116,8 @@ class QuestionController extends AbstractController
     public function questionRatingDown(Question $question): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $question->setRating($question->getRating()-1);
-        $question->setRatingDown($question->getRatingDown()+1);
+        $question->setRating($question->getRating() - 1);
+        $question->setRatingDown($question->getRatingDown() + 1);
         $entityManager->persist($question);
         $entityManager->flush();
 

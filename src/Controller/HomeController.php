@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Question;
 use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
+use App\Repository\UserRepository;
 use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +18,7 @@ class HomeController extends AbstractController
      */
     public function index(QuestionRepository $questionRepository): Response
     {
-        $top5Questions = $questionRepository->findTopFiveQuestions();
+        $top5Questions = $questionRepository->findTopQuestions();
         $last5Questions = $questionRepository->findLastFiveQuestions();
         return $this->render('index.html.twig', [
             'topQuestions' => $top5Questions,
@@ -93,7 +94,15 @@ class HomeController extends AbstractController
         ]);
     }
 
-
+    /**
+     * @Route("/users", name="users_index", methods={"GET"})
+     */
+    public function usersIndex(UserRepository $userRepository): Response
+    {
+        return $this->render('admin/users_index.html.twig', [
+            'users' => $userRepository->findAll(),
+        ]);
+    }
 
 
 }

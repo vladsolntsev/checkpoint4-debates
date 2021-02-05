@@ -3,25 +3,17 @@
 {% block title %}My Profile{% endblock %}
 
 {% block body %}
-    <div>
-        <h1>
-            Hello, {{ app.user.email }}
-        </h1>
+    <div class="text-center">
+        <h1 class="mb-4 mt-3"> Hello, {{ app.user.name }}</h1>
     </div>
-
     <div>
-        <h1>My questions</h1>
+        <h1 class="ml-2" >Your questions</h1>
 
-        <table class="table">
+        <table class="table w-75">
             <tbody>
-
             {% for question in questions %}
                 <tr>
-
                     <td>{{ question.name }}</td>
-                    <td>
-                        <a href="{{ path('question_edit', {'id': question.id}) }}">edit</a>
-                    </td>
                     <td>
                         {{ include('question/_delete_form.html.twig') }}
                     </td>
@@ -31,34 +23,40 @@
         </table>
     </div>
     <div>
-        <h1>
-            My answers
+        <h1 class="ml-2">
+            Your answers
         </h1>
-        {% for answer in answers %}
-            <div class="border">
-                <ul>
-                    <li class="d-flex justify-content-center flex-column">
-                        <div class="border answer">
+        <table class="table w-75">
+            <thead class="thead-light">
+            <tr>
+                <th>Answer</th>
+                <th>Question</th>
+                <th>Side</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for answer in answers %}
+                <tr >
+                    <td><div class="answer">
                             {{ answer.text }}
-                        </div>
-                        <div>
-                            for the question "{{ answer.question.name }}" in category
-                            {% if answer.type == 1 %}
-                            positive
-                            {% else %}
-                                negative
-                                {% endif %}
-                        </div>
-                        <div>
-                            <a href="{{ path('answer_edit', {'id': answer.id}) }}">Edit</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        {% endfor %}
-
-    </div>
-
-
+                        </div></td>
+                    <td class="align-middle">
+                        {{ answer.question.name }}
+                    </td>
+                    <td class="align-middle">
+                        {% if answer.type == 1 %}
+                            Positive
+                        {% else %}
+                            Negative
+                        {% endif %}
+                    </td>
+                    <td class="align-middle">
+                        <a class="action-button animate blue" href="{{ path('answer_edit', {'id': answer.id}) }}">Edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
 {% endblock %}

@@ -21,7 +21,7 @@ class AnswerRepository extends ServiceEntityRepository
 
     public function findAllByQuestion($question)
     {
-        return $this->findBy(['question' => $question],['rating' => 'DESC']);
+        return $this->findBy(['question' => $question], ['rating' => 'DESC']);
     }
     // /**
     //  * @return Answer[] Returns an array of Answer objects

@@ -24,9 +24,8 @@ class QuestionType extends AbstractType
                 'by_reference' => false,
             ])
             ->add('posterFile', VichFileType::class, [
-                'required'      => false,
-            ])
-        ;
+                'required' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

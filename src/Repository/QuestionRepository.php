@@ -24,15 +24,6 @@ class QuestionRepository extends ServiceEntityRepository
     //  * @return Question[] Returns an array of Question objects
     //  */
 
-    public function findTopFiveQuestions()
-    {
-        return $this->createQueryBuilder('q')
-            ->orderBy('q.rating', 'DESC')
-            ->setMaxResults(5)
-            ->getQuery()
-            ->getResult()
-            ;
-    }
 
     public function findLastFiveQuestions()
     {
@@ -40,8 +31,7 @@ class QuestionRepository extends ServiceEntityRepository
             ->orderBy('q.id', 'DESC')
             ->setMaxResults(5)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     public function findTopQuestions()
@@ -49,8 +39,7 @@ class QuestionRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('q')
             ->orderBy('q.rating', 'DESC')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     public function findRandQuestion()
@@ -59,13 +48,8 @@ class QuestionRepository extends ServiceEntityRepository
             ->orderBy('RAND()')
             ->setMaxResults(1)
             ->getQuery()
-            ->getOneOrNullResult()
-            ;
+            ->getOneOrNullResult();
     }
-
-
-
-
 
 
     /*
